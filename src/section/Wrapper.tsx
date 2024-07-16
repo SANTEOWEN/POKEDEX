@@ -1,9 +1,13 @@
 import React from 'react'
 
-function Wrapper() {
+const Wrapper = (Component: React.FC) => () => {
   return (
-    <div className='content'>Wrapper</div>
+    <div className='content'>
+      <Component />
+    </div>
   )
 }
+
+
 
 export default Wrapper
