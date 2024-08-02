@@ -1,20 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ApplyInitialState, PokemonTypeInitialState } from "../../utils/Types";
+import { ApplyInitialState, generatedPokemonType, PokemonTypeInitialState } from "../../utils/Types";
 import { getInitialPokemonData } from "../reducers/getInitialPokemonData";
 import { getPokemonData } from "../reducers/getPokemonData";
 
 const initialState: PokemonTypeInitialState = {
     allPokemon: undefined,
-    randomPokemons: undefined
+    randomPokemons: undefined,
+    compareQueue: []
 };
 
 export const PokemonSlice = createSlice({
     name: 'pokemon',
     initialState,
-    reducers: {},
+    reducers: {
+        addToCompare: (state, action) => {
+            const index = state.compareQueue.findIndex(
+                (pokemon: generatedPokemonType) => pokemon.id === action.payload.id
+            );
+            if (index === -1) {
+                if (state.compareQueue.length === 2) {
+                    state.compareQueue.pop();
+                }
+                state.compareQueue.unshift(action.payload);
+            }
+        },
+        removeFromCompareQueue: (state, action) => {
+            const queIndex = state.compareQueue.findIndex((pokemon: generatedPokemonType) => pokemon.id === action.payload);
+            const queue = [...state.compareQueue];
+            queue.splice(queIndex, 1);
+            state.compareQueue = queue;
+        }
+    },
 
     extraReducers: (builder) => {
-        //This handles the giving the data into the useEffects into the search.tsx when the asycnThunk is loaded
+
         builder.addCase(getInitialPokemonData.fulfilled, (state, action) => {
             state.allPokemon = action.payload;
         })
@@ -26,4 +45,4 @@ export const PokemonSlice = createSlice({
     },
 })
 
-export const { } = PokemonSlice.actions;
+export const { addToCompare, removeFromCompareQueue } = PokemonSlice.actions;

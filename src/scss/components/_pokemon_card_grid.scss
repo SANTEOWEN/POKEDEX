@@ -20,6 +20,39 @@
       padding: 1rem;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       position: relative;
+      svg {
+        transition: 0.3s ease-in-out;
+        &:hover {
+          font-size: 2rem;
+        }
+      }
+
+      &-list {
+        position: absolute;
+        top: 0.7rem;
+        left: 0.8rem;
+        font-size: 1rem;
+        cursor: pointer;
+
+        .trash {
+          color: #f1263e;
+        }
+
+        .plus {
+          color: #63bd49;
+        }
+      }
+
+      &-compare {
+        position: absolute;
+        top: 0.7rem;
+        right: 0.8rem;
+        font-size: 1rem;
+        cursor: pointer;
+        svg {
+          color: #1f51ff;
+        }
+      }
 
       &-title {
         text-align: center;

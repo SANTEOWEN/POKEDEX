@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './section/Navbar'
 import Wrapper from './section/Wrapper'
 import Footer from './section/Footer'
@@ -10,9 +10,36 @@ import MyList from './pages/MyList'
 import About from './pages/About'
 import Compare from './pages/Compare'
 import Pokemon from './pages/Pokemon'
-import path from 'path'
+import { ToastContainer, ToastOptions, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { clearToasts } from './app/slices/AppSlice'
 
 function App() {
+  const { toasts } = useAppSelector(({ app }) => app);
+  const dispatch = useAppDispatch();
+
+  //the useEffect condition tells us that of the payload has been entered some data it will call the taost function and clear it afterwards.
+  useEffect(() => {
+    if (toasts.length) {
+      const toastOptions: ToastOptions = {
+        position: "top-right",
+        autoClose: 3000,
+        pauseOnHover: false,
+        draggable: true,
+        theme: "light",
+      }
+      toasts.forEach((message: string) => {
+        toast(message, toastOptions);
+      });
+      dispatch(clearToasts());
+    }
+
+
+  }, [toasts, dispatch]);
+
+
+
   return (
     <div className='main-container'>
       <Background />
@@ -28,6 +55,7 @@ function App() {
             <Route element={<Navigate to="/pokemon/1" />} path="*" />
           </Routes>
           <Footer />
+          <ToastContainer />
         </div>
       </BrowserRouter>
     </div>
