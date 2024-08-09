@@ -3,6 +3,7 @@ import { ApplyInitialState } from "../../utils/Types";
 
 const initialState: ApplyInitialState = {
     toasts: [],
+    userInfo: undefined,
 };
 
 export const AppSlice = createSlice({
@@ -35,8 +36,12 @@ export const AppSlice = createSlice({
         //This clears out the toast Array so theres no many toast actions that will be executed.
         clearToasts: (state) => {
             state.toasts = [];
+        },
+
+        setUserStatus: (state, action) => {
+            state.userInfo = action.payload;
         }
     },
 })
 
-export const { setToast, clearToasts } = AppSlice.actions;
+export const { setToast, clearToasts, setUserStatus } = AppSlice.actions;

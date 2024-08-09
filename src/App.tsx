@@ -23,11 +23,11 @@ function App() {
   useEffect(() => {
     if (toasts.length) {
       const toastOptions: ToastOptions = {
-        position: "top-right",
+        position: "bottom-right",
         autoClose: 3000,
         pauseOnHover: false,
         draggable: true,
-        theme: "light",
+        theme: "dark",
       }
       toasts.forEach((message: string) => {
         toast(message, toastOptions);

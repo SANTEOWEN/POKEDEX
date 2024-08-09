@@ -24,10 +24,13 @@ export const PokemonSlice = createSlice({
                 state.compareQueue.unshift(action.payload);
             }
         },
+
         removeFromCompareQueue: (state, action) => {
-            const queIndex = state.compareQueue.findIndex((pokemon: generatedPokemonType) => pokemon.id === action.payload);
+            const index = state.compareQueue.findIndex(
+                (pokemon: generatedPokemonType) => pokemon.id === action.payload.id
+            );
             const queue = [...state.compareQueue];
-            queue.splice(queIndex, 1);
+            queue.splice(index, 1);
             state.compareQueue = queue;
         }
     },
