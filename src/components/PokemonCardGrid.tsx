@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../app/hooks'
 import { addToCompare } from '../app/slices/PokemonSlice'
 import { setToast, clearToasts } from '../app/slices/AppSlice'
+import { addPokemonToList } from '../app/reducers/addPokemonToList'
+import { removePokemonFromUserList } from '../app/reducers/removePokemonFromUserList'
 
 
 //NOTE: If youre dealing with array kind of data add some brackets for the types that youre dealing
@@ -24,7 +26,7 @@ const PokemonCardGrid = ({ pokemons }: { pokemons: userPokemonsType[] }) => {
                             <div className='pokemon-card' key={data.id}>
                                 <div className="pokemon-card-list">
                                     {location.pathname.includes("/pokemon") || location.pathname.includes("/search")
-                                        ? (<FaPlus className='plus' />) : (<FaTrash className="trash" />)
+                                        ? (<FaPlus className='plus' onClick={() => dispatch(addPokemonToList(data))} />) : (<FaTrash className="trash" onClick={async () => { await dispatch(removePokemonFromUserList({ id: data.firebaseId! })); dispatch(setToast(`Pokemon ${data.name} removed successfully`)); }} />)
                                     }
 
                                 </div>

@@ -18,6 +18,8 @@ export const firebaseauth = getAuth(app);
 
 export const firebaseDB = getFirestore(app);
 
+//This is the usersReference for the login.
 export const usersRef = collection(firebaseDB, "users");
 
+//This is the collection/storage of the pokemons that we added to our collection/lists
 export const pokemonListRef = collection(firebaseDB, "pokemonList");

@@ -13,7 +13,9 @@ import Pokemon from './pages/Pokemon'
 import { ToastContainer, ToastOptions, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppDispatch, useAppSelector } from './app/hooks'
-import { clearToasts } from './app/slices/AppSlice'
+import { clearToasts, setUserStatus } from './app/slices/AppSlice'
+import { onAuthStateChanged } from 'firebase/auth'
+import { firebaseauth } from './utils/FireBaseConfig'
 
 function App() {
   const { toasts } = useAppSelector(({ app }) => app);
@@ -34,9 +36,17 @@ function App() {
       });
       dispatch(clearToasts());
     }
-
-
   }, [toasts, dispatch]);
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseauth, (currentUser) => {
+      if (currentUser) {
+        dispatch(setUserStatus({ email: currentUser.email }))
+      }
+    })
+
+  }, [dispatch]);
+
 
 
 
