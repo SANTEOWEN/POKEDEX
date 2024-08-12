@@ -16,7 +16,7 @@ function MyList() {
 
   useEffect(() => {
     console.log(userPokemons)
-  },[userPokemons])
+  }, [userPokemons])
 
   return (
     <div className='list'>

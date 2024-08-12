@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Navbar from './section/Navbar'
-import Wrapper from './section/Wrapper'
 import Footer from './section/Footer'
 import Background from './components/Background'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
@@ -20,6 +19,7 @@ import { firebaseauth } from './utils/FireBaseConfig'
 function App() {
   const { toasts } = useAppSelector(({ app }) => app);
   const dispatch = useAppDispatch();
+
 
   //the useEffect condition tells us that of the payload has been entered some data it will call the taost function and clear it afterwards.
   useEffect(() => {

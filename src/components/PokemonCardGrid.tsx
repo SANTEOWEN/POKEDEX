@@ -4,10 +4,11 @@ import { FaPlus, FaTrash } from 'react-icons/fa'
 import { pokemonTypeInterFace, userPokemonsType } from '../utils/Types'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../app/hooks'
-import { addToCompare } from '../app/slices/PokemonSlice'
-import { setToast, clearToasts } from '../app/slices/AppSlice'
+import { addToCompare, setCurrentPokemon } from '../app/slices/PokemonSlice'
+import { setToast, clearToasts, setPokemonTab } from '../app/slices/AppSlice'
 import { addPokemonToList } from '../app/reducers/addPokemonToList'
 import { removePokemonFromUserList } from '../app/reducers/removePokemonFromUserList'
+import { pokemonTabs } from '../utils/Constants'
 
 
 //NOTE: If youre dealing with array kind of data add some brackets for the types that youre dealing
@@ -38,7 +39,7 @@ const PokemonCardGrid = ({ pokemons }: { pokemons: userPokemonsType[] }) => {
                                         }} />
                                 </div>
                                 <h3 className='pokemon-card-title'>{data.name}</h3>
-                                <img src={data.image} alt="pokemon-image" className='pokemon-card-image' loading='lazy' onClick={() => navigate(`/pokemon/${data.id}`)} />
+                                <img src={data.image} alt="pokemon-image" className='pokemon-card-image' loading='lazy' onClick={() => { navigate(`/pokemon/${data.id}`); dispatch(setPokemonTab(pokemonTabs.description)); dispatch(setCurrentPokemon(undefined)); }} />
                                 <div className="pokemon-card-types">
                                     {data.types.map((type: pokemonTypeInterFace, index: number) => {
                                         const keys = Object.keys(type);
